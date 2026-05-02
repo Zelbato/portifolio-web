@@ -5,7 +5,6 @@ import { AboutComponent } from './pages/about/about.component';
 import { TimelineComponent } from './pages/timeline/timeline.component';
 import { SkillsComponent } from './pages/skills/skills.component';
 import { ProjectsComponent } from "./pages/project/project.component";
-import { BlogSectionComponent } from './pages/blog-section/blog-section.component';
 import { CtaComponent } from './pages/cta/cta.component';
 import { ChatBoxComponent } from './pages/cta/chat-box/chat-box.component';
 import { FooterComponent } from './shared/footer/footer.component';
@@ -19,7 +18,6 @@ import { FooterComponent } from './shared/footer/footer.component';
     TimelineComponent,
     SkillsComponent,
     ProjectsComponent,
-    BlogSectionComponent,
     CtaComponent,
     ChatBoxComponent,
     FooterComponent
