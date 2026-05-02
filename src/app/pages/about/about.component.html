@@ -1,0 +1,95 @@
+<section id="sobre" class="about-section">
+    <div class="ambient-light top-light"></div>
+    <div class="ambient-light bottom-light"></div>
+
+    <div class="container">
+        <header class="header-info">
+            <div class="status-badge">
+                <span class="ping-dot"></span>
+                <span class="status-text">Sobre mim</span>
+            </div>
+
+            <h2 class="main-name">Desenvolvimento com base sólida e foco em entrega</h2>
+
+            <p class="role-description">
+                Desenvolvo aplicações web completas utilizando Angular e Laravel, criando interfaces modernas e APIs bem
+                estruturadas, com foco em performance, organização de código e escalabilidade.
+            </p>
+
+            <div class="header-actions">
+                <a href="#projetos" class="primary-action">Ver projetos</a>
+                <a href="#habilidades" class="secondary-action">Explorar stack</a>
+            </div>
+        </header>
+
+        <div class="main-grid">
+            <aside class="side-panel">
+                <div class="profile-card">
+                    <div class="card-icon">
+                        <lucide-icon [img]="brainCircuit" [size]="20"></lucide-icon>
+                    </div>
+
+                    <h3 class="card-title">Resumo profissional</h3>
+                    <p class="card-description">
+                        Desenvolvedor Full Stack com foco em construir sistemas web completos, unindo front-end e
+                        back-end com boas práticas, organização de código e preocupação com performance.
+                    </p>
+
+                    <div class="metadata-list">
+                        @for (item of metadata; track item.label) {
+                        <div class="metadata-item">
+                            <span class="item-label">{{ item.label }}</span>
+                            <span class="item-value">{{ item.value }}</span>
+                        </div>
+                        }
+                    </div>
+
+                    <div class="location-footer">
+                        <div class="location-header">
+                            <lucide-icon [img]="cpu" class="small-icon"></lucide-icon>
+                            <span class="location-label">Forma de trabalho</span>
+                        </div>
+                        <p class="location-value">Desenvolvimento de sistemas web completos (front-end + back-end)</p>
+                    </div>
+                </div>
+
+                <div class="status-card">
+                    <div class="status-info">
+                        <span class="vibe-label">Momento atual</span>
+                        <span class="vibe-value">Aprofundando conhecimentos em arquitetura, performance e integração
+                            entre front-end e back-end</span>
+                    </div>
+
+                    <div class="settings-icon-wrapper">
+                        <div class="icon-pulse"></div>
+                        <lucide-icon [img]="settings" class="rotating-settings"></lucide-icon>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="narrative-grid">
+                @for (phase of phases; track phase.title; let i = $index) {
+                <article class="phase-card" [class.full-width]="i === 0">
+                    <div class="card-glow"></div>
+
+                    <div class="phase-header">
+                        <div class="phase-icon-box">
+                            <lucide-icon [img]="phase.icon"></lucide-icon>
+                        </div>
+                        <span class="phase-number">Etapa 0{{ i + 1 }}</span>
+                    </div>
+
+                    <h4 class="phase-title">{{ phase.title }}</h4>
+                    <p class="phase-content">{{ phase.content }}</p>
+
+                    <div class="tag-list">
+                        @for (tag of phase.tags; track tag) {
+                        <span class="tag-item">{{ tag }}</span>
+                        }
+                    </div>
+                </article>
+                }
+            </div>
+        </div>
+    </div>
+</section>

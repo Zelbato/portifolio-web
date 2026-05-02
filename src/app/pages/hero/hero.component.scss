@@ -1,0 +1,430 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:host {
+    display: block;
+}
+
+.main {
+    background: #030712;
+    min-height: 100vh;
+}
+
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #030712;
+    overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 24px;
+}
+
+/* --- BACKGROUND LAYERS --- */
+.bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    z-index: 2;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* --- NOVO: CODE RAIN EFFECT --- */
+.code-rain {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: 0.12;
+    overflow: hidden;
+}
+
+.code-col {
+    position: absolute;
+    top: -100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 9px;
+    white-space: nowrap;
+    animation: rainFall linear infinite;
+}
+
+.code-col span {
+    color: #059669;
+    line-height: 1.4;
+}
+
+.code-col span.bright {
+    color: #34d399;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(52, 211, 153, 0.6);
+}
+
+.grid {
+    position: absolute;
+    inset: -10%;
+    z-index: 3;
+    background-image:
+        linear-gradient(rgba(5, 150, 105, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(5, 150, 105, 0.08) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+    transition: transform 0.1s ease-out;
+}
+
+.spotlight {
+    position: absolute;
+    width: 1000px;
+    height: 1000px;
+    background: radial-gradient(circle, rgba(5, 150, 105, 0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 4;
+}
+
+.particles {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+
+.particle {
+    fill: #059669;
+}
+
+.scanline {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    background: repeating-linear-gradient(to bottom,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.1) 3px,
+            rgba(0, 0, 0, 0.1) 4px);
+    pointer-events: none;
+}
+
+/* --- CONSOLE HEADER & AI STATUS --- */
+.console-header {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 11px;
+    color: rgba(5, 150, 105, 0.8);
+    letter-spacing: 0.2em;
+    border: 1px solid rgba(5, 150, 105, 0.2);
+    padding: 8px 20px;
+    border-radius: 4px;
+    background: rgba(5, 150, 105, 0.05);
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    backdrop-filter: blur(4px);
+}
+
+.ai-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #34d399;
+    font-weight: 700;
+    border-right: 1px solid rgba(5, 150, 105, 0.3);
+    padding-right: 15px;
+}
+
+.ai-pulse {
+    width: 6px;
+    height: 6px;
+    background: #34d399;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #34d399;
+    animation: pulseGlow 2s infinite;
+}
+
+.dots {
+    display: flex;
+    gap: 6px;
+}
+
+.dots div {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #059669;
+    opacity: 0.5;
+}
+
+.dots div:first-child {
+    animation: pingAnim 1.5s infinite;
+    opacity: 1;
+}
+
+/* --- LOGS --- */
+.logs {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 500px;
+    background: rgba(3, 7, 18, 0.85);
+    border: 1px solid rgba(5, 150, 105, 0.2);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 40px;
+    backdrop-filter: blur(8px);
+}
+
+.log {
+    display: flex;
+    gap: 12px;
+    font-size: 11px;
+    line-height: 1.8;
+    margin-bottom: 2px;
+}
+
+.log .time {
+    color: rgba(5, 150, 105, 0.5);
+    min-width: 75px;
+}
+
+.log .text {
+    color: #94a3b8;
+}
+
+.log .ok {
+    color: #34d399;
+    font-weight: bold;
+}
+
+.tag {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 0px 6px;
+    border: 1px solid #059669;
+    border-radius: 3px;
+    font-size: 9px;
+    color: #059669;
+}
+
+.cursor::after {
+    content: '▋';
+    color: #059669;
+    animation: blink 0.8s step-end infinite;
+    margin-left: 4px;
+}
+
+/* --- TITLES --- */
+.title {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.title h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(48px, 10vw, 90px);
+    font-weight: 900;
+    color: #f8fafc;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.title h1 span {
+    color: #059669;
+}
+
+.title .glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 60px;
+    background: #059669;
+    filter: blur(80px);
+    opacity: 0.15;
+    z-index: -1;
+}
+
+.subtitle {
+    position: relative;
+    z-index: 10;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    color: #94a3b8;
+    max-width: 500px;
+    text-align: center;
+    margin-bottom: 45px;
+    line-height: 1.6;
+}
+
+.subtitle span {
+    color: #34d399;
+    font-weight: 500;
+}
+
+/* --- CTA BUTTON --- */
+.cta {
+    position: relative;
+    z-index: 10;
+    background: rgba(5, 150, 105, 0.05);
+    border: 1px solid rgba(5, 150, 105, 0.3);
+    padding: 18px 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #34d399;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 12px;
+}
+
+.cta:hover .cta-content {
+    color: #030712;
+}
+
+.cta-fill {
+    position: absolute;
+    inset: 0;
+    background: #059669;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.cta:hover .cta-fill {
+    transform: scaleX(1);
+}
+
+.cta-scan {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.3), transparent);
+    transform: translateX(-100%);
+    z-index: 6;
+}
+
+.cta:hover .cta-scan {
+    animation: scanMove 1.5s infinite;
+}
+
+.corner {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-color: #059669;
+    border-style: solid;
+    border-width: 0;
+    z-index: 10;
+}
+
+.tl {
+    top: -1px;
+    left: -1px;
+    border-top-width: 2px;
+    border-left-width: 2px;
+}
+
+.tr {
+    top: -1px;
+    right: -1px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+}
+
+.bl {
+    bottom: -1px;
+    left: -1px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+.br {
+    bottom: -1px;
+    right: -1px;
+    border-bottom-width: 2px;
+    border-right-width: 2px;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes rainFall {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(200vh);
+    }
+}
+
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+}
+
+@keyframes pingAnim {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 0.4;
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes scanMove {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(200%);
+    }
+}

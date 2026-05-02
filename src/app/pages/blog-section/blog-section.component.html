@@ -1,0 +1,45 @@
+<section id="blog" class="blog-section">
+    <!-- Decorative Backdrop -->
+    <div class="backdrop"></div>
+
+    <div class="container">
+        <div class="header">
+            <h2>Transmissions</h2>
+            <h3>
+                Insights do <span>Desenvolvedor</span>
+            </h3>
+        </div>
+
+        <div class="grid">
+            @for (post of blogService.posts(); track post.id) {
+            <article class="card">
+                <div class="image-wrapper">
+                    <img [src]="post.image" alt="Blog post thumbnail" />
+                    <div class="category">
+                        <span>{{ post.category }}</span>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <div class="text">
+                        <span class="date">{{ post.date }}</span>
+
+                        <h4 (click)="blogService.selectPost(post)">
+                            {{ post.title }}
+                        </h4>
+
+                        <p>
+                            {{ post.excerpt }}
+                        </p>
+                    </div>
+
+                    <a (click)="blogService.selectPost(post)" class="read-more">
+                        Deep Scan
+                        <lucide-icon [name]="ArrowRight" [size]="20"></lucide-icon>
+                    </a>
+                </div>
+            </article>
+            }
+        </div>
+    </div>
+</section>

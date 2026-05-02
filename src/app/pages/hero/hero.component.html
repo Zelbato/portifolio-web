@@ -1,0 +1,109 @@
+<div class="main">
+    <div class="console">
+        <section class="hero" (mousemove)="onMouseMove($event)">
+
+            <!-- Background layers -->
+            <div class="bg">
+                <div class="noise"></div>
+                <div class="code-rain">
+                    @for (col of codeColumns; track $index) {
+                    <div class="code-col" [style.left]="col.left" [style.animationDuration]="col.duration"
+                        [style.animationDelay]="col.delay">
+                        @for (line of col.lines; track $index) {
+                        <span [class.bright]="$index === 0">{{ line }}</span>
+                        }
+                    </div>
+                    }
+                </div>
+                <div class="grid" [style.transform]="isBrowser
+            ? 'translate(' + (mouseX() * -0.01) + 'px,' + (mouseY() * -0.01) + 'px)'
+            : ''"></div>
+                <div class="gradient"></div>
+
+                @if (isBrowser) {
+                <div class="spotlight" [style.left.px]="mouseX() - 500" [style.top.px]="mouseY() - 500"></div>
+                }
+
+                <svg class="particles" aria-hidden="true">
+                    @for (p of particles; track $index) {
+                    <circle [attr.cx]="p.x + '%'" [attr.cy]="p.y + '%'" [attr.r]="p.size" [style.opacity]="p.opacity"
+                        class="particle">
+                        <animate attributeName="cy" [attr.from]="p.y + '%'" [attr.to]="(p.y - 10) + '%'"
+                            [attr.dur]="p.duration + 's'" repeatCount="indefinite" />
+                    </circle>
+                    }
+                </svg>
+
+                <div class="scanline"></div>
+            </div>
+
+            <!-- Console header -->
+            <div class="console-header">
+                <div class="ai-status">
+                    <div class="pulse"></div>
+                    <span>GEMINI_CORE: ACTIVE</span>
+                </div>
+                <div class="dots">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+
+            <!-- Boot logs -->
+            <div class="logs" aria-live="polite">
+                @for (log of bootLogs(); track log.id) {
+                <div class="log">
+                    <span class="time">[{{ log.time }}]</span>
+                    <span class="text" [class.ok]="log.status === 'ok'">
+                        {{ log.text }}
+                        @if (log.status === 'ok') {
+                        <span class="tag">SUCCESS</span>
+                        }
+                    </span>
+                </div>
+                }
+
+                @if (isBooting()) {
+                <div class="log typing">
+                    <span class="time">[{{ currentTimestamp() }}]</span>
+                    <span class="cursor">{{ currentTypingLine() }}</span>
+                </div>
+                } @else {
+                <div class="log final">
+                    <span class="time">[{{ currentTimestamp() }}]</span>
+                    <span class="ok">CORE_STABLE // GEMINI_INTEGRATION_ONLINE</span>
+                </div>
+                }
+            </div>
+
+            <!-- Title -->
+            <div class="title">
+                <h1>HEITOR<span>.</span>DEV</h1>
+                <div class="glow"></div>
+            </div>
+
+            <!-- Subtitle -->
+            <p class="subtitle">
+                Desenvolvimento de <span>aplicações web completas</span><br>
+                utilizando <span>Angular e Laravel</span>, com foco em<br>
+                <span>performance, organização e escalabilidade</span>.
+            </p>
+
+            <!-- CTA Button -->
+            <button class="cta" (click)="scrollToContent()" type="button" aria-label="Acessar sistema">
+                <div class="cta-scan"></div>
+                <div class="cta-fill"></div>
+                <span class="cta-content">
+                    <!-- <lucide-icon [img]="login" aria-hidden="true" /> -->
+                    Entrar em contato
+                </span>
+                <div class="corner tl"></div>
+                <div class="corner tr"></div>
+                <div class="corner bl"></div>
+                <div class="corner br"></div>
+            </button>
+
+        </section>
+    </div>
+</div>

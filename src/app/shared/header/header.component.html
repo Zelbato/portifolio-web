@@ -1,0 +1,56 @@
+<nav class="navbar" [class.is-scrolled]="isScrolled()">
+    <div class="container">
+        <button type="button" class="logo" (click)="navigateTo('inicio')" aria-label="Voltar ao topo">
+            <div class="logo-box">
+                <span class="logo-letter">H</span>
+            </div>
+            <span class="logo-text">HEITOR.DEV</span>
+        </button>
+
+        <div class="menu" aria-label="Navegação principal">
+            @for (item of navItems; track item.id) {
+            <button type="button" class="link" [class.is-active]="isActive(item.id)" (click)="navigateTo(item.id)">
+                {{ item.label }}
+                <span class="underline"></span>
+            </button>
+            }
+
+            <button type="button" class="cta" (click)="scrollToFooter()">
+                Entrar em Contato
+            </button>
+        </div>
+
+        <button type="button" class="mobile-btn" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()"
+            aria-label="Abrir menu">
+            <lucide-icon [name]="menuOpen() ? X : menu"></lucide-icon>
+        </button>
+    </div>
+
+    @if (menuOpen()) {
+    <div class="mobile-panel">
+        <div class="mobile-panel__backdrop" (click)="closeMenu()"></div>
+
+        <div class="mobile-panel__content">
+            <div class="mobile-panel__header">
+                <span>Menu</span>
+                <button type="button" class="mobile-close" (click)="closeMenu()" aria-label="Fechar menu">
+                    <lucide-icon [name]="X"></lucide-icon>
+                </button>
+            </div>
+
+            <div class="mobile-links">
+                @for (item of navItems; track item.id) {
+                <button type="button" class="mobile-link" [class.is-active]="isActive(item.id)"
+                    (click)="navigateTo(item.id)">
+                    {{ item.label }}
+                </button>
+                }
+
+                <button type="button" class="mobile-cta" (click)="scrollToFooter()">
+                    Entrar em Contato
+                </button>
+            </div>
+        </div>
+    </div>
+    }
+</nav>

@@ -1,0 +1,283 @@
+<section id="projetos" class="projects-section">
+    <div class="projects-glow projects-glow--left"></div>
+    <div class="projects-glow projects-glow--right"></div>
+
+    <div class="projects-shell">
+        <header class="projects-header">
+            <div class="projects-header__content">
+                <span class="projects-tag">
+                    <span class="projects-tag__dot"></span>
+                    Meus projetos
+                </span>
+
+                <h2 class="projects-title">Projetos <span>selecionados</span></h2>
+
+                <p class="projects-subtitle">
+                    Uma secao mais organizada para mostrar os projetos, separar por tipo e abrir os detalhes sem
+                    poluir a pagina.
+                </p>
+            </div>
+
+            <div class="projects-metrics">
+                @for (metric of overviewMetrics(); track metric.label) {
+                <article class="metric-card">
+                    <span class="metric-card__label">{{ metric.label }}</span>
+                    <strong class="metric-card__value">{{ metric.value }}</strong>
+                </article>
+                }
+            </div>
+        </header>
+
+        <div class="projects-workspace">
+            @if (activeProject(); as project) {
+            <aside class="project-spotlight">
+                <div class="project-spotlight__media">
+                    <img [src]="project.image" [alt]="'Preview do projeto ' + project.title" loading="lazy" />
+
+                    <div class="project-spotlight__overlay"></div>
+
+                    <div class="project-spotlight__badges">
+                        <span class="badge badge--accent">{{ getCategoryLabel(project.category) }}</span>
+                        <span class="badge">{{ project.status }}</span>
+                    </div>
+
+                    <span class="project-spotlight__counter">{{ activeProjectCounter() }}</span>
+                </div>
+
+                <div class="project-spotlight__body">
+                    <div class="project-spotlight__meta">
+                        <span>{{ project.year }}</span>
+                        <span>{{ project.scope }}</span>
+                    </div>
+
+                    <h3>{{ project.title }}</h3>
+
+                    <p class="project-spotlight__description">
+                        {{ project.description }}
+                    </p>
+
+                    <div class="spotlight-details">
+                        <article class="spotlight-details__item">
+                            <span>Projeto</span>
+                            <strong>{{ project.client || 'Projeto autoral' }}</strong>
+                        </article>
+
+                        <article class="spotlight-details__item">
+                            <span>Atuacao</span>
+                            <strong>{{ project.role }}</strong>
+                        </article>
+                    </div>
+
+                    <div class="spotlight-highlights">
+                        @for (highlight of project.highlights; track highlight) {
+                        <article class="highlight-card">
+                            <span class="highlight-card__index">0{{ $index + 1 }}</span>
+                            <p>{{ highlight }}</p>
+                        </article>
+                        }
+                    </div>
+
+                    <div class="tech-list">
+                        @for (tech of project.techs; track tech) {
+                        <span class="tech-chip">{{ tech }}</span>
+                        }
+                    </div>
+
+                    <div class="spotlight-actions">
+                        <button type="button" class="primary-button" (click)="openProject(project)">
+                            Ver detalhes
+                            <lucide-icon name="arrow-right"></lucide-icon>
+                        </button>
+
+                        @if (hasPublicLink(project)) {
+                        <a [href]="project.link" target="_blank" rel="noreferrer" class="secondary-button">
+                            Visitar projeto
+                            <lucide-icon name="external-link"></lucide-icon>
+                        </a>
+                        } @else {
+                        <button type="button" class="secondary-button is-disabled" disabled>
+                            Sem link publico
+                        </button>
+                        }
+                    </div>
+
+                    <div class="spotlight-navigation">
+                        <button type="button" class="nav-button" (click)="showProject(-1)"
+                            [disabled]="!hasProjectNavigation()" aria-label="Projeto anterior">
+                            <lucide-icon name="arrowLeft"></lucide-icon>
+                        </button>
+
+                        <button type="button" class="nav-button" (click)="showProject(1)"
+                            [disabled]="!hasProjectNavigation()" aria-label="Proximo projeto">
+                            <lucide-icon name="arrowRight"></lucide-icon>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+            }
+
+            <div class="project-catalog">
+                <div class="project-catalog__toolbar">
+                    <div class="filter-group">
+                        @for (category of categories(); track category.id) {
+                        <button type="button" class="filter-chip" [class.is-active]="activeCategory() === category.id"
+                            (click)="selectCategory(category.id)">
+                            <span>{{ category.label }}</span>
+                            <strong>{{ category.count }}</strong>
+                        </button>
+                        }
+                    </div>
+
+                    <p class="toolbar-copy">
+                        Filtro atual:
+                        <span>{{ activeFilterLabel() }}</span>.
+                        Clique em um card para atualizar o destaque ou abra os detalhes para ver mais informacoes.
+                    </p>
+                </div>
+
+                <div class="project-grid">
+                    @for (project of filteredProjects(); track project.id) {
+                    <article class="project-card" [class.is-active]="activeProject().id === project.id">
+                        <button type="button" class="project-card__surface" (click)="setActiveProject(project)"
+                            [attr.aria-pressed]="activeProject().id === project.id">
+                            <div class="project-card__image">
+                                <img [src]="project.image" [alt]="'Thumb do projeto ' + project.title" loading="lazy" />
+                                <div class="project-card__image-overlay"></div>
+                                <span class="project-card__status">{{ project.status }}</span>
+                            </div>
+
+                            <div class="project-card__content">
+                                <div class="project-card__meta">
+                                    <span>{{ getCategoryLabel(project.category) }}</span>
+                                    <span>{{ project.year }}</span>
+                                </div>
+
+                                <h4>{{ project.title }}</h4>
+
+                                <p>{{ project.description }}</p>
+                            </div>
+                        </button>
+
+                        <div class="project-card__footer">
+                            <div class="project-card__techs">
+                                @for (tech of project.techs; track tech) {
+                                <span class="tech-chip tech-chip--small">{{ tech }}</span>
+                                }
+                            </div>
+
+                            <button type="button" class="ghost-button" (click)="openProject(project)">
+                                Ver detalhes
+                                <lucide-icon name="arrowRight"></lucide-icon>
+                            </button>
+                        </div>
+                    </article>
+                    } @empty {
+                    <div class="empty-state">
+                        <strong>Nenhum projeto encontrado.</strong>
+                        <p>Nao ha projetos cadastrados nessa categoria no momento.</p>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (dialogProject(); as project) {
+    <div class="project-dialog" role="dialog" aria-modal="true" [attr.aria-labelledby]="'project-title-' + project.id"
+        (click)="closeDialog()">
+        <div class="project-dialog__panel" (click)="$event.stopPropagation()">
+            <button type="button" class="project-dialog__close" (click)="closeDialog()" aria-label="Fechar detalhes">
+                <lucide-icon [name]="X"></lucide-icon>
+            </button>
+
+            <div class="project-dialog__media">
+                <img [src]="project.image" [alt]="'Visual expandido do projeto ' + project.title" />
+                <div class="project-dialog__gradient"></div>
+
+                <div class="project-dialog__headline">
+                    <div class="project-dialog__badges">
+                        <span class="badge badge--accent">{{ getCategoryLabel(project.category) }}</span>
+                        <span class="badge">{{ project.status }}</span>
+                    </div>
+
+                    <h3 [id]="'project-title-' + project.id">{{ project.title }}</h3>
+
+                    <p>{{ project.fullDescription }}</p>
+                </div>
+            </div>
+
+            <div class="project-dialog__content">
+                <div class="dialog-details">
+                    <article class="dialog-details__item">
+                        <span>Ano</span>
+                        <strong>{{ project.year }}</strong>
+                    </article>
+
+                    <article class="dialog-details__item">
+                        <span>Projeto</span>
+                        <strong>{{ project.client || 'Projeto autoral' }}</strong>
+                    </article>
+
+                    <article class="dialog-details__item">
+                        <span>Tipo</span>
+                        <strong>{{ project.scope }}</strong>
+                    </article>
+
+                    <article class="dialog-details__item">
+                        <span>Atuacao</span>
+                        <strong>{{ project.role }}</strong>
+                    </article>
+                </div>
+
+                <section class="dialog-section">
+                    <h4>Destaques</h4>
+
+                    <div class="dialog-highlights">
+                        @for (highlight of project.highlights; track highlight) {
+                        <article class="dialog-highlights__item">
+                            <span class="dialog-highlights__index">0{{ $index + 1 }}</span>
+                            <p>{{ highlight }}</p>
+                        </article>
+                        }
+                    </div>
+                </section>
+
+                <section class="dialog-section">
+                    <h4>Tecnologias</h4>
+
+                    <div class="tech-list">
+                        @for (tech of project.techs; track tech) {
+                        <span class="tech-chip">{{ tech }}</span>
+                        }
+                    </div>
+                </section>
+
+                <div class="project-dialog__actions">
+                    @if (hasPublicLink(project)) {
+                    <a [href]="project.link" target="_blank" rel="noreferrer" class="primary-button">
+                        Abrir projeto
+                        <lucide-icon name="ExternalLink"></lucide-icon>
+                    </a>
+                    } @else {
+                    <button type="button" class="primary-button is-disabled" disabled>
+                        Link nao disponivel
+                    </button>
+                    }
+
+                    <div class="dialog-switcher">
+                        <button type="button" class="nav-button" (click)="showProject(-1)"
+                            [disabled]="!hasProjectNavigation()" aria-label="Projeto anterior no modal">
+                            <lucide-icon name="ArrowLeft"></lucide-icon>
+                        </button>
+
+                        <button type="button" class="nav-button" (click)="showProject(1)"
+                            [disabled]="!hasProjectNavigation()" aria-label="Proximo projeto no modal">
+                            <lucide-icon name="ArrowRight"></lucide-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</section>

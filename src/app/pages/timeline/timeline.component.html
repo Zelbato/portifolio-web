@@ -1,0 +1,40 @@
+<section #timelineSection id="experiencia" class="timeline-section">
+    <div class="vertical-line">
+        <div class="progress-bar" [style.height.%]="progress()"></div>
+    </div>
+
+    <div class="timeline-container">
+        <header class="timeline-header">
+            <span class="header-tag">Trajetória</span>
+            <h2 class="header-title">Evolução como desenvolvedor Full Stack</h2>
+            <p class="header-copy">
+                Principais etapas da minha evolução como desenvolvedor, passando por fundamentos, construção de
+                interfaces e desenvolvimento de sistemas completos com front-end e back-end integrados.
+            </p>
+        </header>
+
+        <div class="timeline-steps">
+            @for (item of journey; track item.title; let i = $index) {
+            <article class="timeline-item" [class.reverse]="i % 2 !== 0" [class.is-active]="activeIndex() === i"
+                (mouseenter)="setActiveIndex(i)">
+                <button type="button" class="content-side" (click)="setActiveIndex(i)"
+                    [attr.aria-pressed]="activeIndex() === i">
+                    <span class="year-badge">{{ item.year }}</span>
+                    <span class="item-tag">{{ item.tag }}</span>
+                    <h3 class="item-title">{{ item.title }}</h3>
+                    <p class="item-description">{{ item.description }}</p>
+                </button>
+
+                <div class="icon-wrapper" aria-hidden="true">
+                    <div class="icon-glow"></div>
+                    <div class="icon-box">
+                        <lucide-icon [name]="item.icon"></lucide-icon>
+                    </div>
+                </div>
+
+                <div class="spacer-side"></div>
+            </article>
+            }
+        </div>
+    </div>
+</section>

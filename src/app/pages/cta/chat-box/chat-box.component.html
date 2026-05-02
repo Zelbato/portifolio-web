@@ -1,0 +1,124 @@
+@if (chatService.isChatOpen()) {
+<div class="chat-fullscreen">
+    <div class="chat-layout">
+
+        @if (!isSidebarCollapsed()) {
+        <div class="sidebar-overlay" (click)="toggleSidebar()"></div>
+        }
+
+        <div class="sidebar" [class.collapsed]="isSidebarCollapsed()">
+            <div class="sidebar-header">
+                <button class="menu-toggle" (click)="toggleSidebar()">
+                    <lucide-icon [name]="Menu" [size]="20"></lucide-icon>
+                </button>
+
+                <button class="new-chat-btn" (click)="chatService.createChat()">
+                    <lucide-icon [name]="squarePen" [size]="20"></lucide-icon>
+                    @if (!isSidebarCollapsed()) {
+                    <span>Nova Conversa</span>
+                    }
+                </button>
+            </div>
+
+            <div class="chat-history">
+                @for (chat of chatService.sessions(); track chat.id) {
+                <div class="history-item" (click)="chatService.selectChat(chat.id)"
+                    [class.active]="chat.id === chatService.activeChatId()">
+
+                    @if (!isSidebarCollapsed()) {
+                    <span>{{ chat.title }}</span>
+
+                    <div class="options-container" (click)="$event.stopPropagation()">
+                        <button class="dots-btn" (click)="toggleOptions(chat.id)">
+                            <lucide-icon [name]="MoreVertical" [size]="16"></lucide-icon>
+                        </button>
+
+                        @if (openedChatMenuId() === chat.id) {
+                        <div class="dropdown-menu">
+                            <button class="delete-opt" (click)="askDeletePermission(chat.id)">
+                                <lucide-icon [name]="Trash2" [size]="14"></lucide-icon>
+                                Excluir
+                            </button>
+                        </div>
+                        }
+                    </div>
+                    } @else {
+                    <lucide-icon [name]="MessageSquare" [size]="20"></lucide-icon>
+                    }
+                </div>
+                }
+            </div>
+        </div>
+
+        <div class="chat-main">
+            <div class="chat-header">
+                <div class="left">
+                    <!-- Botão de menu que aparece apenas no mobile via CSS -->
+                    <button class="mobile-menu-btn" (click)="toggleSidebar()">
+                        <lucide-icon [name]="Menu" [size]="24"></lucide-icon>
+                    </button>
+
+                    <div class="info">
+                        <span class="name">HazAI</span>
+                    </div>
+                </div>
+
+                <button class="close-btn" (click)="chatService.isChatOpen.set(false)">
+                    <lucide-icon [name]="X" [size]="24"></lucide-icon>
+                </button>
+            </div>
+
+            <div #scrollContainer class="chat-messages">
+                @for (msg of chatService.messages(); track $index) {
+                <div class="message" [class.user]="msg.role === 'user'">
+                    @if (msg.role !== 'user') {
+                    <div class="avatar-ai">
+                        <div class="pulse"></div>
+                    </div>
+                    }
+
+                    <div class="bubble">
+                        <div [innerHTML]="parseMarkdown(msg.content)"></div>
+                    </div>
+                </div>
+                }
+
+                @if (chatService.isLoading()) {
+                <div class="message">
+                    <div class="avatar-ai">
+                        <div class="pulse"></div>
+                    </div>
+                    <div class="bubble typing">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+                }
+            </div>
+
+            <div class="chat-input">
+                <div class="chat-input-wrapper">
+                    <input [ngModel]="userInput()" (ngModelChange)="userInput.set($event)" (keyup.enter)="sendMessage()"
+                        placeholder="Digite algo aqui" />
+
+                    <button (click)="sendMessage()">
+                        <lucide-icon [name]="SendHorizontal" [size]="20"></lucide-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+@if (chatToDeleteId()) {
+<div class="modal-overlay" (click)="chatToDeleteId.set(null)">
+    <div class="confirm-modal" (click)="$event.stopPropagation()">
+        <h3>Excluir chat?</h3>
+        <p>Isso apagará permanentemente o histórico desta conversa.</p>
+        <div class="modal-actions">
+            <button class="cancel-btn" (click)="chatToDeleteId.set(null)">Cancelar</button>
+            <button class="confirm-delete-btn" (click)="confirmDelete()">Confirmar</button>
+        </div>
+    </div>
+</div>
+}

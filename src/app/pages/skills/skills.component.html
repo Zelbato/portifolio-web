@@ -1,0 +1,137 @@
+<section id="habilidades" class="skills-section">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+
+    <div class="container-main">
+        <header class="dashboard-header">
+            <div class="header-info">
+                <div class="tag-wrapper">
+                    <span class="dot"></span>
+                    <span class="tag-text">Tecnologias</span>
+                </div>
+
+                <h2 class="main-title">Stack <span>principal</span></h2>
+
+                <p class="sub-text">
+                    Um resumo das tecnologias que mais uso no dia a dia para criar interfaces, APIs, integrações e
+                    aplicações completas.
+                </p>
+            </div>
+
+            <div class="stats-dashboard">
+                <div class="stat-item">
+                    <span class="stat-label">Skills visíveis</span>
+                    <span class="stat-value">{{ stats().total }}</span>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="stat-item">
+                    <span class="stat-label">Média de domínio</span>
+                    <span class="stat-value highlight">{{ stats().average }}%</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid-layout">
+            <aside class="side-menu">
+                <div class="filter-panel">
+                    <h3 class="menu-label">Filtrar por área</h3>
+
+                    <div class="filter-list">
+                        @for (cat of categories; track cat.id) {
+                        <button type="button" class="filter-btn" [class.active]="currentCategory() === cat.id"
+                            (click)="selectCategory(cat.id)">
+                            <div class="btn-content">
+                                <lucide-icon [name]="cat.icon" class="btn-icon"></lucide-icon>
+                                <span>{{ cat.name }}</span>
+                            </div>
+                            <span class="count-tag">
+                                {{ getSkillCount(cat.id) < 10 ? '0' : '' }}{{ getSkillCount(cat.id) }}
+                            </span>
+                        </button>
+                        }
+                    </div>
+                </div>
+
+                @if (selectedSkill(); as skill) {
+                <div class="status-indicator">
+                    <div class="status-header">
+                        <div class="pulse-dot"></div>
+                        <span class="status-text">Skill em destaque</span>
+                    </div>
+
+                    <div class="featured-skill">
+                        <div class="featured-skill__icon">
+                            <lucide-icon [name]="skill.icon"></lucide-icon>
+                        </div>
+
+                        <div class="featured-skill__info">
+                            <strong>{{ skill.name }}</strong>
+                            <span>{{ skill.status }}</span>
+                        </div>
+                    </div>
+
+                    <div class="featured-data">
+                        <div class="featured-data__item">
+                            <span>Experiência</span>
+                            <strong>{{ skill.yearsEx }} anos</strong>
+                        </div>
+
+                        <div class="featured-data__item">
+                            <span>Uso principal</span>
+                            <strong>{{ skill.usage }}</strong>
+                        </div>
+
+                        <div class="featured-data__item">
+                            <span>Nível</span>
+                            <strong>{{ skill.level }}%</strong>
+                        </div>
+                    </div>
+                </div>
+                }
+            </aside>
+
+            <div class="skills-grid">
+                @for (skill of filteredSkills(); track skill.name; let i = $index) {
+                <button #skillCard type="button" class="skill-card" [class.is-active]="selectedSkill().name === skill.name"
+                    [attr.data-skill-name]="skill.name" (click)="selectSkill(skill)">
+                    <span class="index-number">0{{ i + 1 }}</span>
+
+                    <div class="icon-container" [class.high-level]="skill.level >= 95">
+                        <lucide-icon [name]="skill.icon" class="skill-icon"></lucide-icon>
+                    </div>
+
+                    <div class="skill-content-middle">
+                        <div class="info-header">
+                            <h3 class="skill-name">{{ skill.name }}</h3>
+                            <span class="skill-status">{{ skill.status }}</span>
+                        </div>
+
+                        <div class="skill-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Experiência</span>
+                                <span class="meta-value">{{ skill.yearsEx }} anos</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Uso principal</span>
+                                <span class="meta-value usage">{{ skill.usage }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-bottom">
+                        <div class="stability-header">
+                            <span class="stability-label">Nível atual</span>
+                            <span class="stability-value">{{ skill.level }}%</span>
+                        </div>
+                        <div class="stability-bar">
+                            <div class="progress-fill" [style.width.%]="isSkillVisible(skill.name) ? skill.level : 0"></div>
+                        </div>
+                    </div>
+                </button>
+                }
+            </div>
+        </div>
+    </div>
+</section>
