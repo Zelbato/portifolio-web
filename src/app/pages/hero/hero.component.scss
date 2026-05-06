@@ -276,9 +276,9 @@
     font-weight: 500;
 }
 
-/* --- CTA BUTTON --- */
 .cta {
     position: relative;
+    text-decoration: none;
     z-index: 10;
     background: rgba(5, 150, 105, 0.05);
     border: 1px solid rgba(5, 150, 105, 0.3);

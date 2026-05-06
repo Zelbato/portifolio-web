@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { LucideAngularModule, LogIn } from 'lucide-angular';
+import { RouterLink } from "@angular/router";
 
 interface Particle {
   x: number;
@@ -23,7 +24,7 @@ interface BootLog {
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [LucideAngularModule],
+  imports: [LucideAngularModule, RouterLink],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss'
 })
@@ -94,8 +95,14 @@ export class HeroComponent implements OnInit, OnDestroy {
     this.mouseY.set(event.clientY);
   }
 
-  scrollToContent(): void {
-    document.getElementById('content')?.scrollIntoView({ behavior: 'smooth' });
+  enterContacts() {
+    const number = '17988096975';
+    const msg = `Olá.
+Vim pelo seu portfólio e tenho interesse no desenvolvimento de um sistema sob medida.
+Gostaria de solicitar um orçamento e obter informações sobre o processo, prazos e valores.
+Aguardo retorno.`;
+    const url = `https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
   }
 
   generateRain() {
