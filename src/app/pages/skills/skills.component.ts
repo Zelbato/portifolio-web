@@ -10,9 +10,9 @@ import {
   inject,
   signal
 } from '@angular/core';
-import { LucideAngularModule, LucideIconData, Code, Terminal, Cpu, Zap, Flame, Palette, Database, Ship, BarChart3, LayoutDashboard, Monitor, Server, Cloud, Brain } from 'lucide-angular';
+import { LucideAngularModule, LucideIconData, Code, Terminal, Cpu, Zap, Flame, Palette, Database, Ship, BarChart3, LayoutDashboard, Monitor, Server, Cloud, Brain, Smartphone, Sparkles } from 'lucide-angular';
 
-type SkillCategoryId = 'frontend' | 'backend' | 'cloud' | 'ai';
+type SkillCategoryId = 'frontend' | 'backend' | 'ai' | 'mobile';
 
 interface SkillCategory {
   id: 'all' | SkillCategoryId;
@@ -51,20 +51,130 @@ export class SkillsComponent implements AfterViewInit {
     { id: 'all', name: 'Todas', icon: LayoutDashboard },
     { id: 'frontend', name: 'Frontend', icon: Monitor },
     { id: 'backend', name: 'Backend', icon: Server },
-    { id: 'cloud', name: 'Cloud', icon: Cloud },
+    { id: 'mobile', name: 'Mobile', icon: Smartphone },
+    // { id: 'cloud', name: 'Cloud', icon: Cloud },
     { id: 'ai', name: 'IA', icon: Brain }
   ];
 
   readonly skillsList: SkillItem[] = [
-    { name: 'Angular', icon: Code, level: 96, category: 'frontend', yearsEx: 5, usage: 'Interfaces e aplicações completas', status: 'Principal' },
-    { name: 'TypeScript', icon: Terminal, level: 94, category: 'frontend', yearsEx: 6, usage: 'Tipagem, estrutura e manutenção', status: 'Principal' },
-    { name: 'Node.js', icon: Cpu, level: 88, category: 'backend', yearsEx: 4, usage: 'APIs, regras de negócio e serviços', status: 'Forte' },
-    { name: 'Gemini AI', icon: Zap, level: 85, category: 'ai', yearsEx: 1, usage: 'Automação e recursos inteligentes', status: 'Ativo' },
-    { name: 'Firebase', icon: Flame, level: 92, category: 'cloud', yearsEx: 4, usage: 'Autenticação, banco e hospedagem', status: 'Forte' },
-    { name: 'Tailwind CSS', icon: Palette, level: 98, category: 'frontend', yearsEx: 4, usage: 'Criação rápida de interfaces', status: 'Especialidade' },
-    { name: 'PostgreSQL', icon: Database, level: 82, category: 'cloud', yearsEx: 3, usage: 'Modelagem e persistência de dados', status: 'Consistente' },
-    { name: 'Docker', icon: Ship, level: 75, category: 'backend', yearsEx: 2, usage: 'Ambientes e deploy', status: 'Evolução' },
-    { name: 'Python', icon: BarChart3, level: 80, category: 'ai', yearsEx: 3, usage: 'Scripts, dados e automações', status: 'Consistente' }
+    {
+      name: 'Angular',
+      icon: Code,
+      level: 65,
+      category: 'frontend',
+      yearsEx: 0.5,
+      usage: 'Desenvolvimento de interfaces e aplicações web',
+      status: 'Principal'
+    },
+
+    {
+      name: 'TypeScript',
+      icon: Terminal,
+      level: 65,
+      category: 'frontend',
+      yearsEx: 0.5,
+      usage: 'Estruturação, tipagem e manutenção de aplicações',
+      status: 'Principal'
+    },
+    {
+      name: 'JavaScript',
+      icon: Cpu,
+      level: 78,
+      category: 'frontend',
+      yearsEx: 2,
+      usage: 'Interatividade, lógica e funcionalidades web',
+      status: 'Consistente'
+    },
+
+    {
+      name: 'Tailwind CSS',
+      icon: Palette,
+      level: 90,
+      category: 'frontend',
+      yearsEx: 2,
+      usage: 'Criação de interfaces modernas e responsivas',
+      status: 'Destaque'
+    },
+
+    {
+      name: 'SCSS',
+      icon: Palette,
+      level: 80,
+      category: 'frontend',
+      yearsEx: 2,
+      usage: 'Estilização avançada e organização de estilos',
+      status: 'Consistente'
+    },
+
+    {
+      name: 'Laravel',
+      icon: Cpu,
+      level: 35,
+      category: 'backend',
+      yearsEx: 0.3,
+      usage: 'APIs, regras de negócio e integrações',
+      status: 'Principal'
+    },
+
+    {
+      name: 'PHP',
+      icon: Terminal,
+      level: 75,
+      category: 'backend',
+      yearsEx: 1,
+      usage: 'Desenvolvimento back-end e lógica de sistemas',
+      status: 'Consistente'
+    },
+
+    {
+      name: 'Docker',
+      icon: Ship,
+      level: 60,
+      category: 'backend',
+      yearsEx: 1,
+      usage: 'Ambientes de desenvolvimento e deploy',
+      status: 'Aprendizado'
+    },
+
+    {
+      name: 'Google AI Studio',
+      icon: Sparkles,
+      level: 78,
+      category: 'ai',
+      yearsEx: 1,
+      usage: 'Prototipação de interfaces e auxílio criativo',
+      status: 'Ativo'
+    },
+
+    {
+      name: 'Gemini',
+      icon: Zap,
+      level: 82,
+      category: 'ai',
+      yearsEx: 2,
+      usage: 'Auxílio no desenvolvimento e estruturação de código',
+      status: 'Ativo'
+    },
+
+    {
+      name: 'Stitch',
+      icon: Smartphone,
+      level: 70,
+      category: 'ai',
+      yearsEx: 1,
+      usage: 'Criação e prototipação de layouts mobile',
+      status: 'Explorando'
+    },
+
+    {
+      name: 'Ionic',
+      icon: Smartphone,
+      level: 72,
+      category: 'mobile',
+      yearsEx: 0.5,
+      usage: 'Desenvolvimento de aplicações mobile híbridas',
+      status: 'Consistente'
+    }
   ];
 
   readonly filteredSkills = computed(() => {

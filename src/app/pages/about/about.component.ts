@@ -35,8 +35,8 @@ export class AboutComponent {
 
   readonly metadata: MetadataItem[] = [
     { label: 'Foco atual', value: 'Aplicações web completas' },
-    { label: 'Stack principal', value: 'Angular, SCSS, TypeScript e Node.js' },
-    { label: 'Atuação', value: 'Frontend e Full Stack' },
+    { label: 'Stack principal', value: 'Angular, SCSS, TypeScript e Laravel' },
+    { label: 'Atuação', value: 'Frontend e Full-Stack' },
     { label: 'Disponibilidade', value: 'Projetos pessoais e freelas' }
   ];
 
@@ -45,22 +45,22 @@ export class AboutComponent {
       title: 'Base técnica',
       icon: Layers,
       content:
-        'Desenvolvo aplicações com código organizado, seguindo boas práticas e princípios de arquitetura, garantindo manutenção simples e evolução consistente do sistema.',
-      tags: ['Arquitetura', 'Clean Code', 'Escalabilidade']
+        'Desenvolvo aplicações com foco em organização, boas práticas e estruturação de código, buscando criar sistemas fáceis de manter, evoluir e escalar conforme a necessidade do projeto.',
+      tags: ['Arquitetura', 'Clean Code', 'Organização', 'Escalabilidade']
     },
     {
       title: 'Interface e experiência',
       icon: Sparkles,
       content:
-        'Crio interfaces modernas e responsivas com Angular, focando em usabilidade, organização por componentes e uma experiência clara e eficiente para o usuário.',
+        'Crio interfaces modernas, responsivas e bem estruturadas, priorizando usabilidade, componentização e uma experiência clara e intuitiva para o usuário.',
       tags: ['Angular', 'UI', 'UX', 'Responsividade']
     },
     {
       title: 'Back-end e integrações',
       icon: BrainCircuit,
       content:
-        'Desenvolvo APIs com Laravel e realizo integração entre front-end e back-end, incluindo autenticação, consumo de serviços e organização das regras de negócio.',
-      tags: ['Laravel', 'API REST', 'Integração', 'Full Stack']
+        'Desenvolvo APIs e integrações entre front-end e back-end, organizando regras de negócio, autenticação e comunicação entre sistemas de forma eficiente e estruturada.',
+      tags: ['Laravel', 'API REST', 'Integração', 'Full-Stack']
     }
   ];
 
