@@ -8,7 +8,7 @@ import {
   inject,
   signal
 } from '@angular/core';
-import { LucideAngularModule, ArrowLeft, ArrowRight, X, ExternalLink } from 'lucide-angular';
+import { LucideAngularModule, ArrowLeft, ArrowRight, X, ExternalLink, Github } from 'lucide-angular';
 
 type ProjectCategoryId = 'frontend' | 'backend' | 'fullstack';
 
@@ -26,6 +26,7 @@ interface Project {
   role: string;
   highlights: string[];
   link?: string;
+  network?: string;
   client?: string;
 }
 
@@ -60,7 +61,8 @@ export class ProjectsComponent {
   readonly arrowLeft = ArrowLeft;
   readonly arrowRight = ArrowRight;
   readonly X = X;
-  readonly ExternalLink = ExternalLink
+  readonly ExternalLink = ExternalLink;
+  readonly Github = Github;
 
   readonly projects: Project[] = [
     {
@@ -70,18 +72,19 @@ export class ProjectsComponent {
       description: 'Sistema para aplicar testes vocacionais, calcular o perfil do usuario e exibir o resultado final.',
       fullDescription:
         'Projeto completo com tela de perguntas, calculo de resultado, armazenamento das respostas e area de consulta. A ideia e mostrar tanto a parte visual quanto a integracao entre front-end e back-end.',
-      image: 'https://picsum.photos/seed/vocacional/1200/1400',
-      techs: ['Angular', 'Node.js', 'Express', 'MySQL'],
-      year: '2025',
+      image: 'assets/img/teste-vocacional.png',
+      techs: ['Html', 'Css', 'Javascript', 'PHP', 'MySQL'],
+      year: '2024',
       status: 'Projeto academico',
       scope: 'Sistema web',
       role: 'Frontend e backend',
+      network: 'https://github.com/Zelbato/Teste-Vocacional',
       highlights: [
         'Formulario com perguntas dinamicas e retorno de perfil ao final',
         'Integracao entre interface, regras de calculo e persistencia de dados',
         'Estrutura pronta para cadastro de usuarios e historico de resultados'
       ],
-      client: 'Projeto escolar'
+      client: 'Projeto de TCC'
     },
     {
       id: 2,
@@ -90,36 +93,39 @@ export class ProjectsComponent {
       description: 'Sistema de gerenciamento com cadastro de produtos, pedidos e controle basico de atendimento.',
       fullDescription:
         'Projeto pensado para organizar o funcionamento de uma sorveteria em uma interface simples, com cadastro de sabores, controle de pedidos e integracao com uma base de dados para consulta e atualizacao.',
-      image: 'https://picsum.photos/seed/sorveteria/1200/1400',
-      techs: ['Angular', 'TypeScript', 'Node.js', 'PostgreSQL'],
-      year: '2025',
-      status: 'Projeto academico',
+      image: 'assets/img/Sorveteria.png',
+      techs: ['Angular', 'TypeScript', 'Laravel', 'MySQL'],
+      year: '2026',
+      status: 'Projeto para Empresa',
       scope: 'Sistema de gestao',
       role: 'Frontend e backend',
+      network: 'https://github.com/Zelbato/pedy',
       highlights: [
         'Cadastro de produtos, categorias e pedidos em uma unica area',
         'Fluxo simples para atendimento e consulta de informacoes',
         'Base pronta para evoluir relatorios e controle de estoque'
       ],
-      client: 'Projeto academico'
+      client: 'Projeto para Empresa'
     },
     {
       id: 3,
-      title: 'Clone do Facebook',
+      title: 'Quiz de Programação',
       category: 'frontend',
-      description: 'Interface inspirada no Facebook com feed, menu lateral e organizacao visual parecida com a original.',
+      description: 'Aplicação interativa de perguntas e respostas voltada para lógica, programação e conhecimentos em desenvolvimento web.',
       fullDescription:
-        'Projeto focado em reproduzir a estrutura visual da plataforma, trabalhando layout responsivo, distribuicao de blocos, cards de publicacao e hierarquia de informacao na interface.',
-      image: 'https://picsum.photos/seed/facebook/1200/1400',
-      techs: ['Angular', 'HTML', 'SCSS', 'TypeScript'],
-      year: '2024',
-      status: 'Clone de interface',
-      scope: 'Interface web',
+        'Projeto desenvolvido para testar conhecimentos de programação através de perguntas dinâmicas, pontuação em tempo real e feedback visual ao usuário. O sistema foi pensado para proporcionar uma experiência moderna, responsiva e intuitiva tanto em desktop quanto em dispositivos móveis.',
+      image: 'assets/img/quiz-programação.png',
+      techs: ['HTML', 'CSS', 'JavaScript'],
+      year: '2023',
+      status: 'Projeto pessoal',
+      scope: 'Aplicação web',
       role: 'Frontend',
+      link: 'https://quizdeprogramacao.netlify.app/',
+      network: 'https://github.com/Zelbato/Quiz-Programacao',
       highlights: [
-        'Layout com feed, sidebar e blocos de navegacao semelhantes ao original',
-        'Organizacao visual pensada para desktop e mobile',
-        'Estudo de composicao de telas, espacos e repeticao de componentes'
+        'Sistema de perguntas e respostas com pontuação automática',
+        'Interface responsiva e interativa focada em experiência do usuário',
+        'Estrutura componentizada utilizando Angular e boas práticas de organização'
       ],
       client: 'Projeto pessoal'
     },
@@ -131,7 +137,7 @@ export class ProjectsComponent {
       fullDescription:
         'Projeto voltado para reproducao visual da experiencia do Spotify, com foco em organizacao de conteudo, uso de cards, areas destacadas e responsividade em diferentes tamanhos de tela.',
       image: 'https://picsum.photos/seed/spotify/1200/1400',
-      techs: ['Angular', 'SCSS', 'TypeScript', 'HTML'],
+      techs: ['HTML', 'Tailwindcss', 'JavaScript'],
       year: '2024',
       status: 'Clone de interface',
       scope: 'Interface web',

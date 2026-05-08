@@ -253,26 +253,37 @@
                 </section>
 
                 <div class="project-dialog__actions">
-                    @if (hasPublicLink(project)) {
-                    <a [href]="project.link" target="_blank" rel="noreferrer" class="primary-button">
-                        Abrir projeto
-                        <lucide-icon name="ExternalLink"></lucide-icon>
-                    </a>
-                    } @else {
-                    <button type="button" class="primary-button is-disabled" disabled>
-                        Link nao disponivel
-                    </button>
-                    }
+                    <div class="project-dialog__links">
+
+                        @if (hasPublicLink(project)) {
+                        <a [href]="project.link" target="_blank" rel="noreferrer" class="primary-button">
+                            Abrir projeto
+                            <lucide-icon [name]="ExternalLink"></lucide-icon>
+                        </a>
+                        } @else {
+                        <button type="button" class="primary-button is-disabled" disabled>
+                            Sem link disponível
+                        </button>
+                        }
+
+                        @if (project.network) {
+                        <a [href]="project.network" target="_blank" rel="noreferrer" class="github-button"
+                            aria-label="Abrir github do projeto">
+                            <lucide-icon [name]="Github"></lucide-icon>
+                        </a>
+                        }
+
+                    </div>
 
                     <div class="dialog-switcher">
                         <button type="button" class="nav-button" (click)="showProject(-1)"
                             [disabled]="!hasProjectNavigation()" aria-label="Projeto anterior no modal">
-                            <lucide-icon name="ArrowLeft"></lucide-icon>
+                            <lucide-icon [name]="arrowLeft"></lucide-icon>
                         </button>
 
                         <button type="button" class="nav-button" (click)="showProject(1)"
                             [disabled]="!hasProjectNavigation()" aria-label="Proximo projeto no modal">
-                            <lucide-icon name="ArrowRight"></lucide-icon>
+                            <lucide-icon [name]="arrowRight"></lucide-icon>
                         </button>
                     </div>
                 </div>
