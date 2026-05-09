@@ -131,21 +131,22 @@ export class ProjectsComponent {
     },
     {
       id: 4,
-      title: 'Clone do Spotify',
+      title: 'Clone do Facebook',
       category: 'frontend',
-      description: 'Interface inspirada no Spotify com menu lateral, playlists, cards e player fixo na tela.',
+      description: 'Interface inspirada no Facebook com feed de notícias, barra lateral de navegação e área de contatos.',
       fullDescription:
-        'Projeto voltado para reproducao visual da experiencia do Spotify, com foco em organizacao de conteudo, uso de cards, areas destacadas e responsividade em diferentes tamanhos de tela.',
-      image: 'https://picsum.photos/seed/spotify/1200/1400',
+        'Projeto focado na recriação da interface clássica do Facebook, explorando componentes complexos como o sistema de postagens (feed), stories, menus laterais fixos e barra de chat lateral.',
+      image: 'assets/img/clone-facebook.png',
       techs: ['HTML', 'Tailwindcss', 'JavaScript'],
       year: '2024',
       status: 'Clone de interface',
       scope: 'Interface web',
       role: 'Frontend',
+      network: 'https://github.com/Zelbato/Clone-Facebook-Tailwindcss',
       highlights: [
-        'Menu lateral fixo com area principal para playlists e recomendacoes',
-        'Player visual no rodape com organizacao semelhante ao app original',
-        'Estudo de identidade visual, espacamento e comportamento responsivo'
+        'Feed central dinâmico com componentes de postagem, reações e comentários',
+        'Navegação lateral organizada por grupos, amigos e atalhos',
+        'Header responsivo com busca, notificações e menu de perfil'
       ],
       client: 'Projeto pessoal'
     }
